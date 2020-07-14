@@ -1,0 +1,23 @@
+.App {
+  
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+
+.header {
+  text-align: center;
+  margin: 20px;
+  border-bottom: 1px solid  #d0cccc;
+}
+
+.footer {
+  text-align: center;
+  margin: 20px;
+  border-top: 1px solid  #d0cccc;
+  font-size: small;
+  color: #ccc;
+}

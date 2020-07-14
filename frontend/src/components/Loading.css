@@ -1,0 +1,22 @@
+.loading {
+  font-size: 20px;
+  text-align: center;
+  display: block;
+  color: #007bff;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .loading {
+    animation: loading-spin infinite 2s linear;
+  }
+}
+
+
+@keyframes loading-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

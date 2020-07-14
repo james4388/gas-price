@@ -1,0 +1,26 @@
+.result-list .list-item .logo {
+  height: 100px;
+  width: 100px;
+  float: left;
+  position: relative;
+}
+
+.result-list .list-item .logo .logo-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 80px;
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+
+.result-list .list-item .logo img {
+  width: 100%;
+  height: 100%;
+}

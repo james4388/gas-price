@@ -1,0 +1,41 @@
+.result-list a {
+  text-decoration: none; 
+  color: inherit;
+}
+
+.result-list .list-item {
+  margin-bottom: 5px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, .1);
+  box-shadow: 2px 2px 10px 0 hsla(0, 0%, 58.8%, .15);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.result-list .list-item .info {
+  height: 100px;
+  padding: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.result-list .list-item .info .address {
+  font-size: small; 
+}
+
+.result-list .list-item .info .distance {
+  float: right;
+}
+
+.result-list .list-item .price {
+  height: 100px;
+  width: 100px;
+  float: right;
+  text-align: center;
+  border-left: 1px solid #d0cccc;
+  padding: 20px 0;
+}
+
+.result-list .list-item .price .other-price {
+  font-size: x-small;
+}
