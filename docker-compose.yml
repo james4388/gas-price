@@ -1,0 +1,56 @@
+# Docker compose for develop env
+version: "3.7"
+
+x-env-variable: &common-env-vars
+  APP_NAME: GasPrice
+  NODE_ENV: development
+  FLASK_ENV: development
+  FLASK_APP: gasprice
+  LOG_LEVEL: DEBUG
+  GASFEED_API: ${GASFEED_API}
+  GASFEED_API_KEY: ${GASFEED_API_KEY}
+  GOOGLE_GEOCODING_API_KEY: ${GOOGLE_GEOCODING_API_KEY}
+  REACT_APP_API: http://localhost:5000
+
+services:
+  frontend:
+    container_name: gasprice-fe
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    command: npm start
+    stdin_open: true # docker run -i, create-react-app require this
+    tty: true        # docker run -t, create-react-app require this
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    environment:
+      <<: *common-env-vars
+    expose:
+      - "3000"
+      - "35729"
+    ports:
+      - "8000:3000"
+      - "35729:35729"  # Hot reload socket
+    depends_on:
+      - backend
+
+  backend:
+    container_name: gasprice-api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: flask run --host=0.0.0.0 --port=5000 --with-threads
+    volumes:
+      - ./backend:/backend
+    environment:
+      <<: *common-env-vars
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+    
+  redis:
+    image: redis:5-buster
