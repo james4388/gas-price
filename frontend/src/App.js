@@ -3,8 +3,7 @@ import './App.css';
 
 import { GasForm } from './components/GasForm';
 import { StationList } from './components/StationList';
-import { Loading } from './components/Loading';
-import { Alert } from './components/Alert';
+import { AlertTypes, Alert } from './components/Alert';
 
 import { useNearByApi, useGeocoding } from './hooks/useApi';
 import { useAppMessage } from './hooks/useAppMessage';
@@ -21,7 +20,7 @@ function App() {
     fuelType,
     setFuelType,
   } = useNearByApi();
-  const { geocoding } = useGeocoding(setLatLng);
+  const { geocoding, error: geoCodingError } = useGeocoding(setLatLng);
   const [query, setQuery] = useState('');
   const [stations, setStations] = useState(null);
 
@@ -29,7 +28,6 @@ function App() {
   useEffect(() => {
     if (query) {
       if (isLatLngPair(query)) {
-        console.log('set ll to query')
         setLatLng(query);
       } else {
         geocoding({
@@ -38,6 +36,17 @@ function App() {
       }
     }
   }, [query, geocoding, setLatLng]);
+
+  // Handle geocoding error
+  useEffect(() => {
+    if (geoCodingError) {
+      setAppMessage({
+        message: geoCodingError, 
+        type: AlertTypes.WARNING,
+        autoDismiss: 5000
+      });
+    }
+  }, [geoCodingError]);
 
   const clearAppMessage = () => {
     setAppMessage(null);

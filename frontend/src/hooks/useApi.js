@@ -22,7 +22,7 @@ export function useFetch(
   const [request, setRequest] = useState(initialRequest);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,11 +102,13 @@ export function useNearByApi() {
  */
 export function useGeocoding(setLatLng) {
   const [{ data: geocodingData, isLoading: isGeocodeLoading }, geocoding] = useFetch({});
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (geocodingData && geocodingData.status === 'OK') {
+    setError(null);
+    if (geocodingData) {
       const { results } = geocodingData;
-      if (results.length > 0) {
+      if (results && results.length > 0) {
         const firstMatch = results[0];
         const {
           geometry: {
@@ -116,10 +118,12 @@ export function useGeocoding(setLatLng) {
           }
         } = firstMatch;
         console.log('Got location from google, call SetLatLng')
-        setLatLng(`${lat},${lng}`)
+        setLatLng(`${lat},${lng}`);
+        return;
       }
+      setError('Could not find address')
     }
-  }, [geocodingData, setLatLng])
+  }, [geocodingData, setLatLng, setError])
 
-  return { geocoding };
+  return { geocoding, error };
 }
