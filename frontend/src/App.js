@@ -46,7 +46,7 @@ function App() {
         autoDismiss: 5000
       });
     }
-  }, [geoCodingError]);
+  }, [geoCodingError, setAppMessage]);
 
   const clearAppMessage = () => {
     setAppMessage(null);

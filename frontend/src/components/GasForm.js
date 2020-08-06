@@ -59,7 +59,6 @@ function GasForm({
 
   useEffect(() => {
     if (coords && coords.latitude && coords.longitude) {
-      console.log('heeeyyyyyy')
       onLatLngChange(`${coords.latitude},${coords.longitude}`);
     }
   }, [coords, onLatLngChange])

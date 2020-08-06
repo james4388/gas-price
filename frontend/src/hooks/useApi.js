@@ -105,10 +105,16 @@ export function useGeocoding(setLatLng) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setError(null);
+    if (isGeocodeLoading) {
+      setError(null);
+    }
+  }, [isGeocodeLoading])
+
+  useEffect(() => {
     if (geocodingData) {
       const { results } = geocodingData;
       if (results && results.length > 0) {
+        setError(null);
         const firstMatch = results[0];
         const {
           geometry: {
@@ -117,11 +123,11 @@ export function useGeocoding(setLatLng) {
             }
           }
         } = firstMatch;
-        console.log('Got location from google, call SetLatLng')
+        console.log('Got location from google, call SetLatLng');
         setLatLng(`${lat},${lng}`);
         return;
       }
-      setError('Could not find address')
+      setError('Could not find address');
     }
   }, [geocodingData, setLatLng, setError])
 

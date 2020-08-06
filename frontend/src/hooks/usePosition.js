@@ -24,7 +24,6 @@ export function usePosition(options=defaultGeolocationOptions) {
   }
 
   const requestPosition = useCallback(() => {
-    console.log('Get new position from browser', new Date());
     setError(null);
 
     if (!navigator.geolocation) {
