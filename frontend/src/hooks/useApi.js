@@ -123,7 +123,6 @@ export function useGeocoding(setLatLng) {
             }
           }
         } = firstMatch;
-        console.log('Got location from google, call SetLatLng');
         setLatLng(`${lat},${lng}`);
         return;
       }
